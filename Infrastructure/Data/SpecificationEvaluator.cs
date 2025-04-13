@@ -18,9 +18,9 @@ public class SpecificationEvaluator<T> where T : BaseEntity
             query = query.OrderBy(spec.Orderby);
         }
 
-        if (spec.OrderbyDescending != null)
+        if (spec.OrderByDescending != null)
         {
-            query = query.OrderByDescending(spec.OrderbyDescending);
+            query = query.OrderByDescending(spec.OrderByDescending);
         }
 
         if (spec.IsDistinct)
@@ -48,9 +48,9 @@ public class SpecificationEvaluator<T> where T : BaseEntity
             query = query.OrderBy(spec.Orderby);
         }
 
-        if (spec.OrderbyDescending != null)
+        if (spec.OrderByDescending != null)
         {
-            query = query.OrderByDescending(spec.OrderbyDescending);
+            query = query.OrderByDescending(spec.OrderByDescending);
         }
 
         var selectQuery = query as IQueryable<TResult>;
