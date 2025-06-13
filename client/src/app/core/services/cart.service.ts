@@ -53,7 +53,7 @@ export class CartService {
     const cart = this.cart();
     if (!cart) return;
     const index = cart.items.findIndex(x => x.productId === productId);
-    if (index === -1) {
+    if (index !== -1) {
       if (cart.items[index].quantity > quantity) {
         cart.items[index].quantity -= quantity;
       } else {
