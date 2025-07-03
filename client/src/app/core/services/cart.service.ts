@@ -62,7 +62,7 @@ export class CartService {
       if (cart.items.length === 0) {
         this.deleteCart();
       } else {
-        this.cart.set(cart);
+        this.setCart(cart);
       }
     }
 
@@ -83,7 +83,7 @@ export class CartService {
       item.quantity = quantity;
       items.push(item);
     } else {
-      items[index].quantity += quantity;
+      items[index].quantity += quantity
     }
     return items;
   }
