@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace API.Controllers;
 
 public class PaymentsController(IPaymentService paymentService
-    , IGenericRepository<DeliveryMethod> dmRepo) : BaseApiController
+    , IUnitOfWork unit) : BaseApiController
 {
     [Authorize]
     [HttpPost("{cartId}")]
@@ -30,7 +30,7 @@ public class PaymentsController(IPaymentService paymentService
     {
         try
         {
-            return Ok(await dmRepo.ListAllAsync());
+            return Ok(await unit.Repository<DeliveryMethod>().ListAllAsync());
         }
         catch (Exception ex)
         {
