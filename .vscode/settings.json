@@ -1,1 +1,4 @@
-{}
+{
+    "appService.defaultWebAppToDeploy": "/subscriptions/958873b9-1fcd-4476-bc1f-b58f688a2140/resourceGroups/skinet-2024-rg/providers/Microsoft.Web/sites/skinet-course-TLA",
+    "appService.deploySubpath": "API\\bin\\Publish"
+}

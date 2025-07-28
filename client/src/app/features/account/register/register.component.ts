@@ -8,23 +8,19 @@ import { AccountService } from '../../../core/services/account.service';
 import { Router } from '@angular/router';
 import { SnackbarService } from '../../../core/services/snackbar.service';
 import { JsonPipe } from '@angular/common';
-import { TextInputComponent } from "../../../shared/components/text-input/text-input.component";
+import { TextInputComponent } from '../../../shared/components/text-input/text-input.component';
 
 @Component({
   selector: 'app-register',
   imports: [
     ReactiveFormsModule,
     MatCard,
-    MatFormField,
-    MatLabel,
-    MatInput,
     MatButton,
     JsonPipe,
-    MatError,
-    TextInputComponent
-],
+    TextInputComponent,
+  ],
   templateUrl: './register.component.html',
-  styleUrl: './register.component.scss'
+  styleUrl: './register.component.scss',
 })
 export class RegisterComponent {
   private fb = inject(FormBuilder);
@@ -37,7 +33,7 @@ export class RegisterComponent {
     firstName: ['', Validators.required],
     lastName: ['', Validators.required],
     email: ['', Validators.required, Validators.email],
-    password: ['', Validators.required]
+    password: ['', Validators.required],
   });
 
   onSubmit() {
@@ -46,7 +42,7 @@ export class RegisterComponent {
         this.snack.success('Registration successful - You can now log in');
         this.router.navigateByUrl('/account/login');
       },
-      error: errors => this.validationErrors = errors,
-    })
+      error: (errors) => (this.validationErrors = errors),
+    });
   }
 }
