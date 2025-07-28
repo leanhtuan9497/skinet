@@ -7,11 +7,16 @@ import { MatButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
 import { FiltersDialogComponent } from './filters-dialog/filters-dialog.component';
 import { MatMenu, MatMenuTrigger } from '@angular/material/menu';
-import { MatListOption, MatSelectionList, MatSelectionListChange } from '@angular/material/list';
+import {
+  MatListOption,
+  MatSelectionList,
+  MatSelectionListChange,
+} from '@angular/material/list';
 import { ShopParams } from '../../shared/models/shopParams';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { Pagination } from '../../shared/models/pagination';
 import { FormsModule } from '@angular/forms';
+import { EmptyStateComponent } from '../../shared/components/empty-state/empty-state.component';
 
 @Component({
   selector: 'app-shop',
@@ -25,10 +30,11 @@ import { FormsModule } from '@angular/forms';
     MatListOption,
     MatMenuTrigger,
     MatPaginator,
-    FormsModule
+    FormsModule,
+    EmptyStateComponent
   ],
   templateUrl: './shop.component.html',
-  styleUrl: './shop.component.scss'
+  styleUrl: './shop.component.scss',
 })
 export class ShopComponent implements OnInit {
   private shopService = inject(ShopService);
@@ -38,12 +44,12 @@ export class ShopComponent implements OnInit {
     { name: 'Alphabetical', value: 'name' },
     { name: 'Price: Low-High', value: 'priceAsc' },
     { name: 'Price: High-Low', value: 'priceDesc' },
-  ]
+  ];
   shopParams = new ShopParams();
   pageSizeOptions = [5, 10, 15, 20];
 
   ngOnInit(): void {
-    this.initializeShop()
+    this.initializeShop();
   }
 
   initializeShop() {
@@ -52,14 +58,19 @@ export class ShopComponent implements OnInit {
     this.getProducts();
   }
 
+  resetFilters() {
+    this.shopParams = new ShopParams();
+    this.getProducts();
+  }
+
   getProducts() {
     this.shopService.getProducts(this.shopParams).subscribe({
-      next: response => this.products = response,
-      error: error => console.error(error),
+      next: (response) => (this.products = response),
+      error: (error) => console.error(error),
     });
   }
 
-  onSerachChange(){
+  onSerachChange() {
     this.shopParams.pageNumber = 1;
     this.getProducts();
   }
@@ -85,17 +96,17 @@ export class ShopComponent implements OnInit {
       data: {
         selectedBrands: this.shopParams.brands,
         selectedTypes: this.shopParams.types,
-      }
+      },
     });
     dialogRef.afterClosed().subscribe({
-      next: result => {
+      next: (result) => {
         if (result) {
           this.shopParams.brands = result.selectedBrands;
           this.shopParams.types = result.selectedTypes;
           this.shopParams.pageNumber = 1;
           this.getProducts();
         }
-      }
-    })
+      },
+    });
   }
 }
